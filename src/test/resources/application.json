@@ -1,0 +1,14 @@
+[
+  {
+    "name":"robot",
+    "className":"xyz.dsvshx.ioc.entity.Robot"
+  },
+  {
+    "name":"hand",
+    "className":"xyz.dsvshx.ioc.entity.Hand"
+  },
+  {
+    "name":"mouth",
+    "className":"xyz.dsvshx.ioc.entity.Mouth"
+  }
+]

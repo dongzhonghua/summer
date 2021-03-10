@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="helloWorldService" class="xyz.dsvshx.ioc.service.HelloWorldServiceImpl" scope="prototype">
+        <property name="text" value="Hello World"/>
+    </bean>
+
+    <bean id="helloController" class="xyz.dsvshx.ioc.controller.HelloController">
+        <property name="helloWorldService" ref="helloWorldService"/>
+    </bean>
+
+</beans>
