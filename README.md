@@ -27,3 +27,7 @@ IoC 主要是以下几个步骤。
 本部分参考[徒手撸框架--实现IoC](https://www.xilidou.com/2018/01/08/spring-ioc/) 完成
 
 目前根据以上内容只是完成了一个基本的功能，离spring还差得远，接下来一起来改造一下。
+
+## 模仿spring的IoC
+
+下面我们来仿照着spring来做一个IoC

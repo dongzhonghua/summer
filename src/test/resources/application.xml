@@ -9,4 +9,12 @@
         <property name="helloWorldService" ref="helloWorldService"/>
     </bean>
 
+    <bean id="serviceA" class="xyz.dsvshx.ioc.service.ServiceA">
+        <property name="serviceB" ref="serviceB"/>
+    </bean>
+
+    <bean id="serviceB" class="xyz.dsvshx.ioc.service.ServiceB">
+        <property name="serviceA" ref="serviceA"/>
+    </bean>
+
 </beans>

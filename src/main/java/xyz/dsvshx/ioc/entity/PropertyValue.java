@@ -1,5 +1,6 @@
-package xyz.dsvshx.ioc.bean;
+package xyz.dsvshx.ioc.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -7,9 +8,10 @@ import lombok.Data;
  * Created on 2021-03-09
  */
 @Data
-public class ConstructorArg {
-    private int index;
-    private String ref;
+@Builder
+public class PropertyValue {
+
     private String name;
+
     private Object value;
 }
