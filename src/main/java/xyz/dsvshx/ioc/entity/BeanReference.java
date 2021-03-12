@@ -11,7 +11,7 @@ public class BeanReference {
     public BeanReference(String name) {
         this.name = name;
     }
-
+    // 小驼峰
     private String name;
     private Object bean;
 }

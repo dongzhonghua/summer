@@ -1,10 +1,12 @@
 package xyz.dsvshx.ioc.util;
 
 import java.lang.annotation.Annotation;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
+import org.reflections.scanners.TypeAnnotationsScanner;
 
 /**
  * @author dongzhonghua
@@ -12,10 +14,11 @@ import org.reflections.scanners.SubTypesScanner;
  */
 public class ClassUtils {
 
-    public static ClassLoader getDefultClassLoader(){
+    public static ClassLoader getDefultClassLoader() {
         return Thread.currentThread().getContextClassLoader();
     }
-    public static Class loadClass(String className){
+
+    public static Class<?> loadClass(String className) {
         try {
             return getDefultClassLoader().loadClass(className);
         } catch (ClassNotFoundException e) {
@@ -24,13 +27,19 @@ public class ClassUtils {
         return null;
     }
 
-    public Set<Class<?>> findAllClassesByPackage(String packageName) {
+    public static Set<Class<?>> findAllClassesByPackage(String packageName) {
         Reflections reflections = new Reflections(packageName, new SubTypesScanner(false));
         return reflections.getSubTypesOf(Object.class);
     }
 
-    public Set<Class<?>> findAllClassesByAnnotation(String packageName, Class<? extends Annotation> annotation) {
-        Reflections reflections = new Reflections(packageName, new SubTypesScanner(false));
-        return reflections.getTypesAnnotatedWith(annotation);
+    public static Set<Class<?>> findAllClassesByAnnotation(String packageName,
+            Class<? extends Annotation>... annotations) {
+        Reflections reflections =
+                new Reflections(packageName, new SubTypesScanner(false), new TypeAnnotationsScanner());
+        Set<Class<?>> res = new HashSet<>();
+        for (Class<? extends Annotation> annotation : annotations) {
+            res.addAll(reflections.getTypesAnnotatedWith(annotation));
+        }
+        return res;
     }
 }

@@ -31,3 +31,5 @@ IoC 主要是以下几个步骤。
 ## 模仿spring的IoC
 
 下面我们来仿照着spring来做一个IoC
+
+beanDefiniton是一个比较重要的类，spring关于benDefintion的在这有讲解：https://blog.csdn.net/qq_24549805/article/details/103724714

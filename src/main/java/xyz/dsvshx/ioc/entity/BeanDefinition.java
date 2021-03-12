@@ -14,12 +14,9 @@ import lombok.ToString;
 @Data
 @ToString
 public class BeanDefinition {
-    // 保存一份bean的定义
-    private Object bean;
+    private String id;
 
     private Class<?> beanClass;
-
-    private String id;
 
     private String beanClassName;
 
@@ -30,5 +27,8 @@ public class BeanDefinition {
     private List<ConstructorArg> constructorArgs;
 
     private List<PropertyValue> propertyValues;
+
+    // 保存一份bean的定义
+    private Object bean;
 
 }
