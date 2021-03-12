@@ -20,7 +20,9 @@ public class ClassPathXmlApplicationContext extends AbstractApplicationContext {
     public ClassPathXmlApplicationContext(String location) throws Exception {
         super();
         this.location = location;
-        refresh();
+        if (location != null) {
+            refresh();
+        }
     }
 
     public void refresh() throws Exception {
@@ -36,7 +38,7 @@ public class ClassPathXmlApplicationContext extends AbstractApplicationContext {
         beanFactory.populateBeans();
     }
 
-    private AbstractBeanFactory obtainBeanFactory() throws Exception {
+    protected AbstractBeanFactory obtainBeanFactory() throws Exception {
         XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
         xmlBeanDefinitionReader.loadBeanDefinitions(location);
         AbstractBeanFactory beanFactory = new AutowiredCapableBeanFactory();

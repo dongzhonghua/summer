@@ -1,4 +1,4 @@
-package xyz.dsvshx.ioc.core;
+package xyz.dsvshx.ioc.context;
 
 /**
  * @author dongzhonghua

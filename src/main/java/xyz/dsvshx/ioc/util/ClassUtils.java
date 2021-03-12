@@ -32,6 +32,7 @@ public class ClassUtils {
         return reflections.getSubTypesOf(Object.class);
     }
 
+    @SafeVarargs
     public static Set<Class<?>> findAllClassesByAnnotation(String packageName,
             Class<? extends Annotation>... annotations) {
         Reflections reflections =

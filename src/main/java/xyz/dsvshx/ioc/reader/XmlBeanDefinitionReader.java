@@ -96,7 +96,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
     }
 
-    private void parseAnnotation(String basePackage) {
+    public void parseAnnotation(String basePackage) {
         Set<Class<?>> classes = ClassUtils.findAllClassesByAnnotation(basePackage, Component.class, Service.class);
         for (Class<?> clazz : classes) {
             processAnnotationBeanDefinition(clazz);
