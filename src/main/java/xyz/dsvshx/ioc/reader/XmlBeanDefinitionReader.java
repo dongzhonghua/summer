@@ -10,13 +10,10 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.google.common.base.CaseFormat;
 
 import lombok.extern.slf4j.Slf4j;
 import xyz.dsvshx.ioc.annotation.Autowired;
@@ -29,6 +26,7 @@ import xyz.dsvshx.ioc.entity.BeanDefinition;
 import xyz.dsvshx.ioc.entity.BeanReference;
 import xyz.dsvshx.ioc.entity.PropertyValue;
 import xyz.dsvshx.ioc.io.ResourceLoader;
+import xyz.dsvshx.ioc.util.BeanUtils;
 import xyz.dsvshx.ioc.util.ClassUtils;
 
 /**
@@ -104,18 +102,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     }
 
     private void processAnnotationBeanDefinition(Class<?> clazz) {
-        String name = "";
-        if (clazz.getAnnotation(Component.class) != null) {
-            name = clazz.getAnnotation(Component.class).name();
-        }
-        if (clazz.getAnnotation(Service.class) != null) {
-            name = clazz.getAnnotation(Service.class).name();
-        }
-        if (StringUtils.isBlank(name)) {
-            Class<?>[] interfaces = clazz.getInterfaces();
-            name = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL,
-                    interfaces.length == 1 ? interfaces[0].getSimpleName() : clazz.getSimpleName());
-        }
+        String beanName = BeanUtils.getBeanName(clazz);
         String className = clazz.getName();
         boolean singleton = true;
         if (clazz.isAnnotationPresent(Scope.class) && "prototype".equals(clazz.getAnnotation(Scope.class).value())) {
@@ -123,7 +110,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         }
         BeanDefinition beanDefinition = new BeanDefinition();
         processAnnotationProperty(clazz, beanDefinition);
-        processBeanDefinition(name, className, singleton, beanDefinition);
+        processBeanDefinition(beanName, className, singleton, beanDefinition);
     }
 
     private void processBeanDefinition(String name, String className, boolean singleton,
@@ -144,7 +131,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         getRegistry().put(name, beanDefinition);
     }
 
-    private void processAnnotationProperty(Class<?> clazz, BeanDefinition beanDefinition) {
+    public static void processAnnotationProperty(Class<?> clazz, BeanDefinition beanDefinition) {
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
             String name = field.getName();
@@ -173,7 +160,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                             .name(name)
                             .build());
                 } else {
-                    String ref = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, field.getType().getSimpleName());
+                    String ref = BeanUtils.getBeanName(field.getType());
                     BeanReference beanReference = new BeanReference(ref);
                     propertyValues.add(PropertyValue.builder()
                             .value(beanReference)

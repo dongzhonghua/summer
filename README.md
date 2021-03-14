@@ -33,3 +33,13 @@ IoC 主要是以下几个步骤。
 下面我们来仿照着spring来做一个IoC
 
 beanDefiniton是一个比较重要的类，spring关于benDefintion的在这有讲解：https://blog.csdn.net/qq_24549805/article/details/103724714
+
+
+
+## mvc
+
+开始实现mvc，先用netty做一个服务器，这个非常简单，几十行代码就可以搞定。
+
+问题出现在ioc和mvc要不要耦合在一起。按理说不应该偶合在一起，因为本身spring和springmvc是不一样的。实现的功能不一样，应该有不同的启动方式。
+
+所以我认为实现mvc还是不要和其他的偶合在一起了，逻辑应该放在启动netty之前，初始化一个容器，然后在这个基础之上添加功能，在这个过程，之前的启动方式应该是不能变化的。

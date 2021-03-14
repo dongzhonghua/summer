@@ -1,11 +1,5 @@
 package xyz.dsvshx.ioc.context;
 
-import java.util.Map.Entry;
-
-import xyz.dsvshx.ioc.entity.BeanDefinition;
-import xyz.dsvshx.ioc.factory.AbstractBeanFactory;
-import xyz.dsvshx.ioc.factory.AutowiredCapableBeanFactory;
-import xyz.dsvshx.ioc.io.ResourceLoader;
 import xyz.dsvshx.ioc.reader.XmlBeanDefinitionReader;
 
 /**
@@ -23,14 +17,19 @@ public class ConfigurableApplicationContext extends ClassPathXmlApplicationConte
     }
 
     @Override
-    protected AbstractBeanFactory obtainBeanFactory() throws Exception {
-        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
+    protected void processBeanDefinitionReader(XmlBeanDefinitionReader xmlBeanDefinitionReader) throws Exception {
         xmlBeanDefinitionReader.parseAnnotation(basepackage);
-        AbstractBeanFactory beanFactory = new AutowiredCapableBeanFactory();
-        for (Entry<String, BeanDefinition> beanDefinitionEntry : xmlBeanDefinitionReader.getRegistry()
-                .entrySet()) {
-            beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());
-        }
-        return beanFactory;
     }
+
+    // @Override
+    // protected AbstractBeanFactory obtainBeanFactory() throws Exception {
+    //     XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
+    //     xmlBeanDefinitionReader.parseAnnotation(basepackage);
+    //     AbstractBeanFactory beanFactory = new AutowiredCapableBeanFactory();
+    //     for (Entry<String, BeanDefinition> beanDefinitionEntry : xmlBeanDefinitionReader.getRegistry()
+    //             .entrySet()) {
+    //         beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());
+    //     }
+    //     return beanFactory;
+    // }
 }

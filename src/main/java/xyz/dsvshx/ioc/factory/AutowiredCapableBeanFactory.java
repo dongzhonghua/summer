@@ -83,23 +83,6 @@ public class AutowiredCapableBeanFactory extends AbstractBeanFactory {
     }
 
     private void populateBean(Object bean, BeanDefinition beanDefinition) throws Exception {
-        // 这里如果是用代理对象的话则需要用getSuperclass,因为代理使用的继承，但是如果是用直接newInstance则不需要了，所以这里怎么做？
-        // Field[] declaredFields = bean.getClass().getSuperclass().getDeclaredFields();
-        // if (declaredFields != null) {
-        // for (Field field : declaredFields) {
-        //     String beanName = field.getName();
-        //     beanName = StringUtils.uncapitalize(beanName);
-        //     if (beanNameSet.contains(field.getName())) {
-        //         Object fieldBean = getBean(beanName);
-        //         if (fieldBean != null) {
-        //             ReflectionUtils.injectField(field, bean, fieldBean);
-        //         }
-        //     } else {
-        //
-        //     }
-        // }
-
-        // }
         List<PropertyValue> propertyValues = beanDefinition.getPropertyValues();
         if (!propertyValues.isEmpty()) {
             for (PropertyValue propertyValue : propertyValues) {
@@ -122,5 +105,22 @@ public class AutowiredCapableBeanFactory extends AbstractBeanFactory {
                 }
             }
         }
+        // 这里如果是用代理对象的话则需要用getSuperclass,因为代理使用的继承，但是如果是用直接newInstance则不需要了，所以这里怎么做？
+        // Field[] declaredFields = bean.getClass().getSuperclass().getDeclaredFields();
+        // if (declaredFields != null) {
+        // for (Field field : declaredFields) {
+        //     String beanName = field.getName();
+        //     beanName = StringUtils.uncapitalize(beanName);
+        //     if (beanNameSet.contains(field.getName())) {
+        //         Object fieldBean = getBean(beanName);
+        //         if (fieldBean != null) {
+        //             ReflectionUtils.injectField(field, bean, fieldBean);
+        //         }
+        //     } else {
+        //
+        //     }
+        // }
+
+        // }
     }
 }

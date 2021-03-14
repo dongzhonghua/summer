@@ -1,12 +1,8 @@
 package xyz.dsvshx.ioc.context;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
-import xyz.dsvshx.ioc.entity.BeanDefinition;
 import xyz.dsvshx.ioc.factory.AbstractBeanFactory;
-import xyz.dsvshx.ioc.factory.AutowiredCapableBeanFactory;
-import xyz.dsvshx.ioc.io.ResourceLoader;
 import xyz.dsvshx.ioc.reader.XmlBeanDefinitionReader;
 
 /**
@@ -25,28 +21,38 @@ public class ClassPathXmlApplicationContext extends AbstractApplicationContext {
         }
     }
 
-    public void refresh() throws Exception {
+    protected void refresh() throws Exception {
         synchronized (startupShutdownMonitor) {
+            // 获取所有的bean定义
             AbstractBeanFactory beanFactory = obtainBeanFactory();
+            // 初始化所有的bean
             prepareBeanFactory(beanFactory);
             this.beanFactory = beanFactory;
         }
 
     }
 
+    /**
+     * 将定义的beanDefinition初始化
+     */
     private void prepareBeanFactory(AbstractBeanFactory beanFactory) throws Exception {
         beanFactory.populateBeans();
     }
 
-    protected AbstractBeanFactory obtainBeanFactory() throws Exception {
-        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
+    // protected AbstractBeanFactory obtainBeanFactory() throws Exception {
+    //     XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(new ResourceLoader());
+    //     xmlBeanDefinitionReader.loadBeanDefinitions(location);
+    //     AbstractBeanFactory beanFactory = new AutowiredCapableBeanFactory();
+    //     for (Entry<String, BeanDefinition> beanDefinitionEntry : xmlBeanDefinitionReader.getRegistry()
+    //             .entrySet()) {
+    //         beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());
+    //     }
+    //     return beanFactory;
+    // }
+
+    @Override
+    protected void processBeanDefinitionReader(XmlBeanDefinitionReader xmlBeanDefinitionReader) throws Exception {
         xmlBeanDefinitionReader.loadBeanDefinitions(location);
-        AbstractBeanFactory beanFactory = new AutowiredCapableBeanFactory();
-        for (Entry<String, BeanDefinition> beanDefinitionEntry : xmlBeanDefinitionReader.getRegistry()
-                .entrySet()) {
-            beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());
-        }
-        return beanFactory;
     }
 
     @Override
