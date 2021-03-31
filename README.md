@@ -1,6 +1,9 @@
 [TOC]
 # 手写一个IOC框架
 
+-[ ] 提供一个beanPostProcessor接口 
+
+
 ## 实现一个基于JSon的IOC框架
 
 ### IoC 是什么
