@@ -84,7 +84,7 @@ public class AutowiredCapableBeanFactory extends AbstractBeanFactory {
 
     private void populateBean(Object bean, BeanDefinition beanDefinition) throws Exception {
         List<PropertyValue> propertyValues = beanDefinition.getPropertyValues();
-        if (!propertyValues.isEmpty()) {
+        if (propertyValues != null && !propertyValues.isEmpty()) {
             for (PropertyValue propertyValue : propertyValues) {
                 Field declaredField = bean.getClass().getSuperclass().getDeclaredField(propertyValue.getName());
                 Object fieldValue;
