@@ -8,7 +8,9 @@ import java.util.Map;
  */
 public interface ApplicationContext {
     Object getBean(Class<?> clazz) throws Exception;
+
     Object getBean(String beanName) throws Exception;
+
     /**
      * 获取所有注册的bean
      *

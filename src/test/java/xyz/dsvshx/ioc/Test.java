@@ -4,7 +4,6 @@ import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
 import xyz.dsvshx.ioc.annotation.Application;
-import xyz.dsvshx.ioc.annotation.mvc.WebApplication;
 import xyz.dsvshx.ioc.context.ApplicationContext;
 import xyz.dsvshx.ioc.controller.HelloController;
 import xyz.dsvshx.ioc.service.HelloWorldService;
@@ -16,7 +15,7 @@ import xyz.dsvshx.ioc.service.ServiceB;
  * Created on 2021-03-10
  */
 @Slf4j
-@WebApplication
+// @WebApplication
 @Application(basepackage = "xyz.dsvshx.ioc")
 public class Test {
     public static void main(String[] args) throws Exception {
